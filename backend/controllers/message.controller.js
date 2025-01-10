@@ -41,10 +41,10 @@ export const getMessages=async (req,res)=>{
         const senderId=req.user._id;
         const conversation=await Conversation.findOne({participants:{$all:[senderId,userToChatId]},
         }).populate("messages");
-        res.status(200).json(conversation.messages);
-        if(!conversation) {
-            return res.status(200).json([]);
-        }
+        
+        if(!conversation) return res.status(200).json([]);
+
+
         const messages=conversation.messages;
         res.status(200).json(messages)
     } catch (error) {
